@@ -99,4 +99,21 @@ sin2 = ts(sin(1:nn/nn*36*pi), start=1970, frequency=4)
 plot(cbind(sin1, sin2), main="", xlab="", ylab="", col="steelblue")
 spectrum(cbind(sin1, sin2), spans=c(3,3), main="", col="steelblue")
 
-spectrum(gdp_o, spans=c(3,3), main)
+spectrum(gdp_o, spans=c(3,3), main="", col="steelblue")
+plot(sin1+sin2, main="", xlab="", ylab="", col="steelblue")
+spectrum(sin1+sin2, spans=c(3,3), main="", col="steelblue")
+
+plot(wn, main="", xlab="", ylab="", col="steelblue")
+abline(h=0, lty=2, col="gray")
+spectrum(wn, spans=c(3,3), main="", col=1:2)
+
+plot(gdp_o, main="", xlab="", ylab="")
+lines(gdp_sa, col=2)
+spectrum(cbind(gdp_o, gdp_sa), spans=c(3,3), main="", col=1:2)
+
+dlgdp1 = diff(log(gdp_o))
+dlgdp2 = diff(log(gdp_o), 4)
+dlgdp = cbind(dlgdp1, dlgdp2)
+plot(dlgdp1, main="", xlab="", ylab="", col="steelblue")
+lines(dlgdp2, col=2)
+spectrum(na.omit(cbind(dlgdp1, dlgdp2)), spans=c(3,3), main="", col=c("steelblue"), "red")
