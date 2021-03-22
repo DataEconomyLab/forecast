@@ -157,6 +157,53 @@ par(mfrow=c(1,1))
  par(mfrow=c(1,1))
  spectrum(diff(sarimasim), spans=c(3,3), main="")
 
-  
+#####################################################
+library(tsDyn)
+library(sm)
  
+TvarMat <- c(-1, -0.5, 0.2, 1, 0.7, -0.2)
+sim <- setar.sim(B=TvarMat, lag=2, type="simul", n=154, nthresh=1, Thresh=0, starting=c(2.8, 2.2))$serie
+
+plot(ts(sim, start=1970, frequency=4), xlab=)
  
+par(mfrow=c(1,2))
+autopairs(sim, lag=1, type="regression")
+autopairs(sim, lag=2, type="regression")
+
+########################################
+library(TSA)
+set.seed(5)
+tarsim <- tar.sim(n=176, Phi1=c(0, 0.7), Phi2=c(0,-0.9), p=1, d=1, sigma1=1, thd=0.5, sigma2=2)$y
+
+plot(ts(tarsim, start=1970, frequency=4), xlab="", ylab="", col="steelblue")
+lagplot(tarsim, method="gam")
+
+library(tsDyn)
+library(sm)
+par(mfrow=c(1,2))
+autopairs(tarsim, lag=1, type="regression")
+autopairs(tarsim, lag=2, type="regression")
+
+########################################
+# Figure 4-20
+library(quantmod)
+# Yahoo! Finance로부터 종합주가지수 종가 데이터 가져오기
+kospi <- getSymbols("^KS11", auto.assign= FALSE)[,4]
+kospi_r <- dailyReturn(na.omit(kospi))
+plot(kospi_r, main="")
+plot(kospi_r^2, main="")
+
+library("fGarch")
+set.seed(5)
+spec = garchSpec(model = list(alpha = c(0.5, 0.4), beta=0))
+garchsim = garchSim(spec, n=176)
+
+plot(ts(garchsim, start=1970, frequency=4), xlab="", ylab="", col="steelblue")
+
+par(mfrow=c(2,1))
+  acf(garchsim, main="")
+ pacf(garchsim, main="")
+
+  acf(garchsim^2, main="")
+ pacf(garchsim^2, main="")
+
