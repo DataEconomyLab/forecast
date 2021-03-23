@@ -43,3 +43,82 @@ par(mfrow=c(2,1))
 pacf(diff(diff(log(gdp_o)), 4), main="")
 
 ##############################
+fin <- ts(read.csv("c:/work/data/kospi_n.csv", header=TRUE), start=1993, frequency=12)
+kospi <- fin[,1]
+er <- fin[,2]
+plot(diff(log(kospi)), ylab="종합주가지수", xlab="", col="steelblue", main="")
+
+par(mfrow=c(2,1))
+ acf(diff(log(kospi)), main="")
+pacf(diff(log(kospi)), main="")
+
+kospi_fit = arima(log(kospi), order=c(1,1,0))
+summary(kospi_fit)
+
+kospi_fit = arima(log(kospi), order=c(0,1,1))
+summary(kospi_fit)
+
+library(forecast)
+auto.arima(log(kospi))
+
+##############################
+#과대적합
+kospi_fit = arima(log(kospi), order=c(1,1,1))
+summary(kospi_fit)
+kospi_fit = arima(log(kospi), order=c(0,1,2))
+summary(kospi_fit)
+
+#잔차
+kospi_fit = arima(log(kospi), order=c(0,1,1))
+tsdiag(kospi_fit)
+
+##############################
+
+plot(forecast(kospi_fit, h=12))
+
+##############################
+library(TSA)
+library(tseries)
+library(quantmod)
+
+getSymbols("^KS11", from="1997-01-03", to="2014-8-31")
+ plot(KS11)
+ kospi = KS11$ KS11.Close
+ r.kospi = diff(log(kospi))
+ r.kospi1 = r.kospi[2:length(r.kospi)]
+ 
+plot(kospi, main="KOSPI")
+plot(r.kospi, main="dlog KOSPI")
+
+hist(r.kospi1, breaks=100, freq=FALSE, main="", xlab="")
+qqnorm(r.kospi1)
+qqline(r.kospi1)
+jarque.bera.test(na.omit(r.kospi1))
+kurtosis(na.omit(r.kospi))
+skewness(na.omit(r.kospi1))
+
+par(mfrow=c(2,1))
+  acf(r.kospi, na.action = na.pass, main = "")
+ pacf(r.kospi, na.action = na.pass, main = "")
+
+  acf(r.kospi^2, na.action = na.pass, main = "")
+ pacf(r.kospi^2, na.action = na.pass, main = "")
+ McLeod.Li.test(y=r.kospi)
+ 
+library(fGarch) 
+gg = garchFit(~arma(0,1) + garch(1,1), r.kospi1)
+summary(gg)
+plot(gg)
+
+##############################
+er <- getSymbols("KRW=X", auto.assign = FALSE)[,4]
+r.er = diff(log(er))
+r.er1 = r.er[2:length(r.er)]
+
+hist(e.er1, breaks=100, freq=FALSE, main="", xlab="")
+jarque.bera.test(na.omit(r.er1))
+
+garch_er <- garchFit(~arma(0,1) + garch(1,1), r.er1)
+summary(garch_er)
+
+plot((fitted(garchFitoutput)[,1])^2, type='1', ylab='조건부 분산', xlab='')
