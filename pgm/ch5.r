@@ -112,7 +112,7 @@ plot(gg)
 
 ##############################
 er <- getSymbols("KRW=X", auto.assign = FALSE)[,4]
-r.er = diff(log(er))
+r.er = diff(log(er))N
 r.er1 = r.er[2:length(r.er)]
 
 hist(e.er1, breaks=100, freq=FALSE, main="", xlab="")
