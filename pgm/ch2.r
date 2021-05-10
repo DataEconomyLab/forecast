@@ -1,58 +1,58 @@
 # Figure 2-3
 setwd("c:/work/data")
-gni_i <- ts(read.csv("gni.csv", header=TRUE), start=1970, frequency=1)
-plot(gni_i[,2], xlab="ì—°ë„", ylab="1ì¸ë‹¹ êµ­ë¯¼ì†Œë“", col="steelblue")
+gni_i <- ts(read.csv("C:/Users/ljyjj/Documents/GitHub/forecast/data/gni.csv", header=TRUE), start=1970, frequency=1)
+plot(gni_i[,2], xlab="¿¬µµ", ylab="1ÀÎ´ç ±¹¹Î¼Òµæ", col="steelblue")
 points(gni_i[,2])
 
 # Figure 2-5
-gdp_d <- ts(read.csv("gdpq.csv", header=TRUE), start=1970, frequency=4)
-plot(gdp_d[,1]/1000, ylab="GDP(ì¡° ì›)", xlab="ì—°ë„", col="steelblue")
+gdp_d <- ts(read.csv("C:/Users/ljyjj/Documents/GitHub/forecast/data/gdpq.csv", header=TRUE), start=1970, frequency=4)
+plot(gdp_d[,1]/1000, ylab="GDP(Á¶ ¿ø)", xlab="¿¬µµ", col="steelblue")
 lines(gdp_d[,2]/1000, col="red")
 
 # Figure 2-6
 cci <- ts(read.csv("bc.csv", header=TRUE), start=1970, frequency=12)
-plot(cci[,1], ylab="ë™í–‰ì§€ìˆ˜ìˆœí™˜ë³€ë™ì¹˜", xlab="ì—°ë„", col="steelblue")
+plot(cci[,1], ylab="?™?–‰ì§€?ˆ˜?ˆœ?™˜ë³€?™ì¹?", xlab="?—°?„", col="steelblue")
 abline(h=100, lty=2, col="gray")
 
 # Figure 2-7
 climate <- ts(read.csv("climate.csv", header=TRUE), start=1980, frequency=12)
-plot(climate, ylab="ëŒ€ì „ í‰ê· ê¸°ì˜¨", xlab="ì—°ë„", col="steelblue")
+plot(climate, ylab="??€? „ ?‰ê· ê¸°?˜¨", xlab="?—°?„", col="steelblue")
 
 # Figure 2-8
 kospi1 <- read.csv("kospi_n.csv", header=TRUE)
 log_kospi = ts(log(kospi1[,1]), start=1993, frequency=12)
 kospi = ts(kospi1[,1], start=1993, frequency=12)
-plot(cbind(kospi, log_kospi), xlab="ì—°ë„", col="steelblue", main="")
+plot(cbind(kospi, log_kospi), xlab="?—°?„", col="steelblue", main="")
 
 
 # Figure 2-8
 kospi1 <- read.csv("kospi_n.csv", header=TRUE)
 log_kospi = ts(log(kospi1[,1]), start=1993, frequency=12)
 kospi = ts(kospi1[,1], start=1993, frequency=12)
-plot(cbind(kospi, log_kospi), xlab="ì—°ë„", col="steelblue", main="")
+plot(cbind(kospi, log_kospi), xlab="?—°?„", col="steelblue", main="")
 
 # Figure 2-9
 ipic1 <- read.csv("ipic.csv", header=TRUE)
 ipi <- ts(ipic1[,1], start=2000, frequency=12)
 ipi_c <- ts(ipic1[,2], start=2000, frequency=12)
-plot(cbind(ipi, ipi_c), xlab="ì—°ë„", col="steelblue", main="")
+plot(cbind(ipi, ipi_c), xlab="?—°?„", col="steelblue", main="")
 
 # Figure 2-10
 kospi1 <- read.csv("kospi_n.csv", header=TRUE)
 kospi = ts(kospi1[,1], start=1993, frequency=12)
-plot(cbind(log(kospi),diff(log(kospi))), xlab="ì—°ë„", ylab="log(KOSPI)", col="steelblue", main="")
+plot(cbind(log(kospi),diff(log(kospi))), xlab="?—°?„", ylab="log(KOSPI)", col="steelblue", main="")
 
 # Figure 2-11
 gdp <- read.csv("gdpq.csv", header=TRUE)
 gdp_sa <- ts(gdp[,2]/1000, start=1970, frequency=4)
 gdp_gr <- ts((gdp_sa - lag(gdp_sa, -1)) / lag(gdp_sa,-1)*100, start=c(1970,2), frequency=4)
-plot(cbind(gdp_sa, gdp_gr), ylab="GDP(ì¡° ì›)", xlab="ì—°ë„", col="steelblue", main="")
+plot(cbind(gdp_sa, gdp_gr), ylab="GDP(ì¡? ?›)", xlab="?—°?„", col="steelblue", main="")
 
 # Figure 2-12
 library(quantmod)
-# Yahoo! Financeë¡œë¶€í„° ì¢…í•©ì£¼ê°€ì§€ìˆ˜ ì¢…ê°€ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+# Yahoo! Financeë¡œë?€?„° ì¢…í•©ì£¼ê?€ì§€?ˆ˜ ì¢…ê?€ ?°?´?„° ê°€? ¸?˜¤ê¸?
 kospi<- getSymbols("^KS11", auto.assign = FALSE)
-#ê·¸ëž˜í”„
+#ê·¸ëž˜?”„
 chartSeries(kospi, subset='last 6 months', theme='white', TA=NULL, up.col="red", dn.col="blue")
 addSMA(n=5, on=1, with.col=Cl, overlay = TRUE, col="brown")
 addSMA(n=20, on=1, with.col=Cl, overlay = TRUE, col="red")
@@ -71,10 +71,10 @@ dlgdp1 = diff(log(gdp))
 dlgdp4 = diff(log(gdp), 4)
 
 # 2-13
-plot(gdp, ylab="GDP(ì¡° ì›)", xlab="ì—°ë„", col="steelblue")
+plot(gdp, ylab="GDP(ì¡? ?›)", xlab="?—°?„", col="steelblue")
 lines(gdpm5, col="red")
 # 2-14
-plot(gdp, ylab="GDP(ì¡° ì›)", xlab="ì—°ë„", col="steelblue")
+plot(gdp, ylab="GDP(ì¡? ?›)", xlab="?—°?„", col="steelblue")
 lines(gdpm3, col="red")
 
 # 2-16
